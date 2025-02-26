@@ -28,7 +28,7 @@ A modern, user-friendly PowerShell GUI tool for installing ARK-4 Custom Firmware
 ### Option 1: Run Directly from PowerShell (Recommended)
 Open PowerShell and run:
 ```powershell
-irm raw.githubusercontent.com/M4cs/PSP-ARK4-Assistant/main/Helper.ps1 | iex
+irm raw.githubusercontent.com/Nigel1992/Ark4-Assistant/main/Helper.ps1 | iex
 ```
 
 If PowerShell blocks the script:
@@ -38,7 +38,7 @@ If PowerShell blocks the script:
 4. Try running the command again
 
 ### Option 2: Manual Download
-1. Download the latest release
+1. Download the latest release from [GitHub](https://github.com/Nigel1992/Ark4-Assistant/releases)
 2. Extract the files
 3. Right-click `Helper.ps1` and select "Run with PowerShell"
 4. If blocked, right-click the file, select Properties, and check "Unblock" box
