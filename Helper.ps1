@@ -8,6 +8,9 @@ $accentColor = [System.Drawing.Color]::FromArgb(0, 122, 204)
 $textColor = [System.Drawing.Color]::FromArgb(240, 240, 240)
 $buttonTextColor = [System.Drawing.Color]::White
 
+# Define log file path
+$logFilePath = Join-Path $env:TEMP "ARK4_Assistant_Debug.log"
+
 # Create the main form with modern styling
 $form = New-Object System.Windows.Forms.Form
 $form.Text = "Ark4 Assistant"
@@ -29,10 +32,10 @@ $form.Controls.Add($headerPanel)
 # Create header title
 $headerLabel = New-Object System.Windows.Forms.Label
 $headerLabel.Text = "ARK-4 Assistant"
-$headerLabel.AutoSize = $true  # Allow the label to size itself
+$headerLabel.AutoSize = $true
 $headerLabel.Font = New-Object System.Drawing.Font("Segoe UI", 16, [System.Drawing.FontStyle]::Bold)
 $headerLabel.ForeColor = [System.Drawing.Color]::White
-$headerLabel.Location = New-Object System.Drawing.Point(20, ($headerPanel.Height - 30) / 2)  # Center vertically
+$headerLabel.Location = New-Object System.Drawing.Point(20, [Math]::Floor(($headerPanel.Height - 30) / 2))
 $headerLabel.TextAlign = "MiddleLeft"
 $headerPanel.Controls.Add($headerLabel)
 
@@ -179,27 +182,36 @@ $detectButton.Add_Click({
         $driveComboBox.SelectedItem = $pspDrive
         $progressLabel.Text = "PSP detected at drive $pspDrive"
         Add-LogEntry "PSP detected at drive $pspDrive"
+        [System.Windows.Forms.MessageBox]::Show(
+            "PSP detected at drive $pspDrive`n`nReady to install ARK-4!",
+            "PSP Found",
+            [System.Windows.Forms.MessageBoxButtons]::OK,
+            [System.Windows.Forms.MessageBoxIcon]::Information
+        )
     } else {
         $progressLabel.Text = "No PSP detected"
         Add-LogEntry "No PSP detected in available drives"
         [System.Windows.Forms.MessageBox]::Show(
-            "Could not detect PSP drive.`nMake sure your PSP is connected and in USB mode.",
-            "PSP Not Found"
+            "Could not detect PSP drive.`n`nPlease check:`n- PSP is connected via USB`n- USB mode is enabled on PSP`n- USB cable is working",
+            "PSP Not Found",
+            [System.Windows.Forms.MessageBoxButtons]::OK,
+            [System.Windows.Forms.MessageBoxIcon]::Warning
         )
     }
 })
 
 $mainPanel.Controls.Add($detectButton)
 
-# Move other controls down
+# Create progress label first
+$progressLabel = New-Object System.Windows.Forms.Label
 $progressLabel.Location = New-Object System.Drawing.Point(10, 200)
-$checklist.Location = New-Object System.Drawing.Point(10, 250)
-$buttonPanel.Location = New-Object System.Drawing.Point(10, 470)
-$progressBar.Location = New-Object System.Drawing.Point(10, 520)
-$statusPanel.Location = New-Object System.Drawing.Point(10, 550)
-$logBox.Location = New-Object System.Drawing.Point(10, 570)
+$progressLabel.Size = New-Object System.Drawing.Size(460, 40)
+$progressLabel.Text = "Ready to install..."
+$progressLabel.Font = New-Object System.Drawing.Font("Segoe UI", 10)
+$progressLabel.TextAlign = "MiddleLeft"
+$mainPanel.Controls.Add($progressLabel)
 
-# Create step-by-step checklist with modern styling
+# Create checklist
 $checklist = New-Object System.Windows.Forms.CheckedListBox
 $checklist.Location = New-Object System.Drawing.Point(10, 250)
 $checklist.Size = New-Object System.Drawing.Size(460, 200)
@@ -217,7 +229,7 @@ $checklist.Items.AddRange(@(
 ))
 $mainPanel.Controls.Add($checklist)
 
-# Create button container
+# Create button panel
 $buttonPanel = New-Object System.Windows.Forms.Panel
 $buttonPanel.Location = New-Object System.Drawing.Point(10, 470)
 $buttonPanel.Size = New-Object System.Drawing.Size(460, 40)
@@ -281,7 +293,7 @@ $cancelButton.Add_MouseLeave({
 })
 $buttonPanel.Controls.Add($cancelButton)
 
-# After the button panel, add progress bar and log
+# Create progress bar
 $progressBar = New-Object System.Windows.Forms.ProgressBar
 $progressBar.Location = New-Object System.Drawing.Point(10, 520)
 $progressBar.Size = New-Object System.Drawing.Size(460, 20)
@@ -290,19 +302,7 @@ $progressBar.BackColor = $darkSecondary
 $progressBar.ForeColor = $accentColor
 $mainPanel.Controls.Add($progressBar)
 
-# Create log textbox
-$logBox = New-Object System.Windows.Forms.TextBox
-$logBox.Location = New-Object System.Drawing.Point(10, 570)
-$logBox.Size = New-Object System.Drawing.Size(460, 60)
-$logBox.Multiline = $true
-$logBox.ScrollBars = "Vertical"
-$logBox.ReadOnly = $true
-$logBox.BackColor = $darkSecondary
-$logBox.ForeColor = $textColor
-$logBox.Font = New-Object System.Drawing.Font("Consolas", 9)
-$mainPanel.Controls.Add($logBox)
-
-# Add status panel above log
+# Create status panel
 $statusPanel = New-Object System.Windows.Forms.Panel
 $statusPanel.Location = New-Object System.Drawing.Point(10, 550)
 $statusPanel.Size = New-Object System.Drawing.Size(460, 20)
@@ -318,21 +318,58 @@ $statusLabel.ForeColor = $textColor
 $statusLabel.TextAlign = "MiddleLeft"
 $statusPanel.Controls.Add($statusLabel)
 
+# Create log box
+$logBox = New-Object System.Windows.Forms.TextBox
+$logBox.Location = New-Object System.Drawing.Point(10, 570)
+$logBox.Size = New-Object System.Drawing.Size(460, 60)
+$logBox.Multiline = $true
+$logBox.ScrollBars = "Vertical"
+$logBox.ReadOnly = $true
+$logBox.BackColor = $darkSecondary
+$logBox.ForeColor = $textColor
+$logBox.Font = New-Object System.Drawing.Font("Consolas", 9)
+$mainPanel.Controls.Add($logBox)
+
+# After creating the log box, add copyright label
+$copyrightLabel = New-Object System.Windows.Forms.Label
+$copyrightLabel.Location = New-Object System.Drawing.Point(10, 640)
+$copyrightLabel.Size = New-Object System.Drawing.Size(460, 20)
+$copyrightLabel.Text = "© 2024 Nigel1992 - ARK-4 Assistant"
+$copyrightLabel.Font = New-Object System.Drawing.Font("Segoe UI", 8)
+$copyrightLabel.ForeColor = [System.Drawing.Color]::FromArgb(150, 150, 150)  # Subtle gray color
+$copyrightLabel.TextAlign = "MiddleCenter"
+$mainPanel.Controls.Add($copyrightLabel)
+
 # Function to add log entry
 function Add-LogEntry {
     param([string]$message)
-    $timestamp = Get-Date -Format "HH:mm:ss"
-    $logBox.AppendText("[$timestamp] $message`r`n")
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logEntry = "[$timestamp] $message"
+    
+    # Append to UI log box
+    $logBox.AppendText("$logEntry`r`n")
     $logBox.ScrollToCaret()
+    
+    # Append to log file with more details
+    $detailedEntry = "[$timestamp] [${PID}] $message"
+    try {
+        Add-Content -Path $logFilePath -Value $detailedEntry
+    } catch {
+        $logBox.AppendText("[ERROR] Failed to write to log file: $_`r`n")
+    }
 }
 
 # Function to get latest ARK-4 release
 function Get-LatestARKRelease {
+    Add-LogEntry "Starting ARK-4 version check..."
     $progressLabel.Text = "Fetching latest ARK-4 release..."
     $apiUrl = "https://api.github.com/repos/PSP-Archive/ARK-4/releases"
     
     try {
+        Add-LogEntry "Requesting data from GitHub API: $apiUrl"
         $releases = Invoke-RestMethod -Uri $apiUrl -Method Get
+        Add-LogEntry "Received $(($releases | Measure-Object).Count) releases from API"
+        
         # Sort releases by version number from release title
         $latestRelease = $releases | 
             Where-Object { -not $_.prerelease } |
@@ -359,6 +396,14 @@ function Get-LatestARKRelease {
             }
         }
     } catch {
+        $errorDetails = @"
+Failed to fetch releases:
+Error: $($_.Exception.Message)
+Type: $($_.Exception.GetType().FullName)
+Stack Trace:
+$($_.ScriptStackTrace)
+"@
+        Add-LogEntry $errorDetails
         $versionInfoLabel.Text = "Failed to fetch version info"
         [System.Windows.Forms.MessageBox]::Show("Failed to fetch latest release: $_", "Error")
         return $null
@@ -631,6 +676,60 @@ $form.Add_Shown({
     if ($releaseInfo) {
         Add-LogEntry "Latest ARK-4 version available: $($releaseInfo.Version) (Released: $($releaseInfo.PublishDate))"
     }
+})
+
+# Add debug log button next to other buttons
+$debugButton = New-Object System.Windows.Forms.Button
+$debugButton.Location = New-Object System.Drawing.Point(330, 0)
+$debugButton.Size = New-Object System.Drawing.Size(100, 30)
+$debugButton.Text = "Debug Log"
+$debugButton.FlatStyle = "Flat"
+$debugButton.BackColor = $darkSecondary
+$debugButton.ForeColor = $buttonTextColor
+$debugButton.Font = New-Object System.Drawing.Font("Segoe UI", 10)
+$debugButton.FlatAppearance.BorderSize = 0
+$debugButton.Cursor = "Hand"
+$debugButton.Add_MouseEnter({
+    $this.BackColor = [System.Drawing.Color]::FromArgb(55, 55, 58)
+})
+$debugButton.Add_MouseLeave({
+    $this.BackColor = $darkSecondary
+})
+$debugButton.Add_Click({
+    if (Test-Path $logFilePath) {
+        Start-Process notepad.exe $logFilePath
+    } else {
+        [System.Windows.Forms.MessageBox]::Show(
+            "No debug log file found at:`n$logFilePath",
+            "Debug Log Not Found",
+            [System.Windows.Forms.MessageBoxButtons]::OK,
+            [System.Windows.Forms.MessageBoxIcon]::Information
+        )
+    }
+})
+$buttonPanel.Controls.Add($debugButton)
+
+# Add at the start of the script, after Add-Type declarations
+# Initialize log file with system info
+$systemInfo = @"
+=== ARK-4 Assistant Debug Log ===
+Started: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
+Process ID: $PID
+PowerShell Version: $($PSVersionTable.PSVersion)
+OS: $([System.Environment]::OSVersion.VersionString)
+Machine Name: $env:COMPUTERNAME
+User: $env:USERNAME
+Working Directory: $PWD
+Temp Path: $env:TEMP
+=================================
+
+"@
+Set-Content -Path $logFilePath -Value $systemInfo
+
+# Add form closing event to log application exit
+$form.Add_FormClosing({
+    Add-LogEntry "Application closing..."
+    Add-LogEntry "=== Session End ===`n"
 })
 
 # Show the form
