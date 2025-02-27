@@ -283,11 +283,6 @@ $driveComboBox.Add_SelectedIndexChanged({
             }
             $progressLabel.Text = $statusMessage
             Add-LogEntry $statusMessage
-            
-            # Show appropriate message based on CFW status
-            if ($cfwInfo.CFW -ne "Unknown" -and $cfwInfo.CFW -ne "ARK-4") {
-                Show-UninstallInstructions -cfwType $cfwInfo.CFW -statusMessage $statusMessage
-            }
         } else {
             $progressLabel.Text = "Selected drive does not appear to be a PSP"
             Add-LogEntry "No PSP detected at $selectedDrive"
@@ -515,20 +510,55 @@ $mainPanel.Controls.Add($copyrightLabel)
 
 # Function to add log entry
 function Add-LogEntry {
-    param([string]$message)
-    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    $logEntry = "[$timestamp] $message"
+    param(
+        [string]$message,
+        [switch]$NoNewLine
+    )
     
-    # Append to UI log box
-    $logBox.AppendText("$logEntry`r`n")
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    
+    # Split message into lines and format each line
+    $formattedLines = @()
+    $messageLines = $message -split "`n"
+    foreach ($line in $messageLines) {
+        if ($line -match '^\s*$') {
+            $formattedLines += ""  # Keep empty lines as is
+        } else {
+            $formattedLines += "[$timestamp] $line"
+        }
+    }
+    
+    # Join the lines with proper line breaks
+    $formattedMessage = $formattedLines -join "`r`n"
+    
+    # Add extra newline for certain types of messages to improve readability
+    $addNewLine = -not $NoNewLine -and (
+        $message -match "^(Starting|Completed|Found|Error|Debug mode:|Scanning|Requesting|Received|Latest|Drive|PSP detected|CFW:|Installation:)" -or
+        $message -match "^={3,}"
+    )
+    
+    # Append to UI log box with proper formatting
+    if ($logBox.Text.Length -gt 0 -and -not $logBox.Text.EndsWith("`r`n")) {
+        $logBox.AppendText("`r`n")
+    }
+    $logBox.AppendText($formattedMessage)
+    if ($addNewLine) {
+        $logBox.AppendText("`r`n")
+    }
     $logBox.ScrollToCaret()
     
     # Append to log file with more details
-    $detailedEntry = "[$timestamp] [${PID}] $message"
     try {
-        Add-Content -Path $logFilePath -Value $detailedEntry
+        if ((Get-Content -Path $logFilePath -Raw).Length -gt 0) {
+            Add-Content -Path $logFilePath -Value "`n$formattedMessage"
+        } else {
+            Add-Content -Path $logFilePath -Value $formattedMessage
+        }
+        if ($addNewLine) {
+            Add-Content -Path $logFilePath -Value ""
+        }
     } catch {
-        $logBox.AppendText("[ERROR] Failed to write to log file: $_`r`n")
+        $logBox.AppendText("`r`n[ERROR] Failed to write to log file: $_`r`n")
     }
 }
 
@@ -559,14 +589,21 @@ function Get-LatestARKRelease {
             # Format the date
             $publishDate = [DateTime]::Parse($latestRelease.published_at).ToString("yyyy-MM-dd")
             
-            # Update version info label using release name instead of tag
-            $versionInfoLabel.Text = "Latest version: $($latestRelease.name)`nReleased: $publishDate`nSize: $([math]::Round(($latestRelease.assets[0].size / 1MB), 2)) MB"
+            # Update version info label with clearer ARK-4 reference
+            $versionInfoLabel.Text = "ARK-4 Release Information`nVersion: $($latestRelease.name)`nReleased: $publishDate"
+            Add-LogEntry "Latest ARK-4 version available: $($latestRelease.name) (Released: $publishDate)"
+            
+            # Reset progress label to ready state
+            $progressLabel.Text = "Ready to install..."
             
             return @{
                 Version = $latestRelease.name
                 Assets = $latestRelease.assets
                 PublishDate = $publishDate
             }
+        } else {
+            $progressLabel.Text = "No releases found"
+            return $null
         }
     } catch {
         $errorDetails = @"
@@ -578,6 +615,7 @@ $($_.ScriptStackTrace)
 "@
         Add-LogEntry $errorDetails
         $versionInfoLabel.Text = "Failed to fetch version info"
+        $progressLabel.Text = "Failed to fetch latest release info"
         [System.Windows.Forms.MessageBox]::Show("Failed to fetch latest release: $_", "Error")
         return $null
     }
@@ -942,24 +980,14 @@ $debugCheckbox.Add_CheckedChanged({
     Add-LogEntry "Debug mode: $($debugCheckbox.Checked)"
     
     if ($debugCheckbox.Checked) {
-        # Simulate CFW detection when debug mode is enabled
+        # Update status message only
         $selectedCFW = $debugCFWCombo.SelectedItem
-        $cfwInfo = @{
-            CFW = $selectedCFW
-            IsPermanent = $false
-        }
-        
         $statusMessage = "PSP detected at DEBUG`nCFW: $selectedCFW"
         if ($selectedCFW -eq "ARK-4") {
             $statusMessage += "`nInstallation: Temporary"
         }
-        
         $progressLabel.Text = $statusMessage
         Add-LogEntry "[DEBUG] Simulating $selectedCFW CFW"
-        
-        if ($selectedCFW -ne "Unknown" -and $selectedCFW -ne "ARK-4") {
-            Show-UninstallInstructions -cfwType $selectedCFW -statusMessage $statusMessage
-        }
     }
 })
 
