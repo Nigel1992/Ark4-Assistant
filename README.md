@@ -77,7 +77,11 @@ If PowerShell blocks the script:
 3. Launch ARK-4 Assistant
 4. Click "Detect PSP" or manually select your PSP drive
 5. Click "Start" to begin installation
-6. Follow the on-screen instructions
+6. **IMPORTANT**: When prompted, verify your PSP's firmware status:
+   - Go to Settings > System Settings > System Information
+   - Confirm NO custom firmware is installed
+   - Verify you're on Official Firmware 6.60 or 6.61
+7. Follow the on-screen instructions
 
 ## Features in Detail
 
@@ -125,6 +129,13 @@ If PowerShell blocks the script:
 - System information logging
 - Installation progress tracking
 - Error logging with detailed information
+
+### Installation Safety Features
+- Mandatory firmware verification step before installation
+- Clear instructions for checking current firmware status
+- Warning about installing over existing CFW
+- Multiple confirmation steps for user safety
+- Detailed progress tracking with abort options
 
 ## Advanced Features
 

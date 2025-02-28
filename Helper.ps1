@@ -911,6 +911,27 @@ $startButton.Add_Click({
         return
     }
 
+    # Show firmware verification dialog
+    $confirmResult = [System.Windows.Forms.MessageBox]::Show(
+        "IMPORTANT: Please verify your PSP's current firmware status:
+
+1. Go to PSP's Settings > System Settings > System Information
+2. Verify that NO custom firmware is currently installed
+3. Confirm your PSP is on Official Firmware 6.60 or 6.61
+
+Are you sure you want to proceed with the installation?
+
+Note: Installing ARK-4 over another CFW may cause issues.",
+        "Firmware Verification Required",
+        [System.Windows.Forms.MessageBoxButtons]::YesNo,
+        [System.Windows.Forms.MessageBoxIcon]::Warning
+    )
+    
+    if ($confirmResult -eq [System.Windows.Forms.DialogResult]::No) {
+        Add-LogEntry "Installation cancelled by user at firmware verification step"
+        return
+    }
+
     $pspDrive = $driveComboBox.SelectedItem
     Add-LogEntry "Starting installation to drive: $pspDrive"
     
