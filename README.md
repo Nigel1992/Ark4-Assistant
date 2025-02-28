@@ -88,6 +88,9 @@ If PowerShell blocks the script:
 - Automatic drive selection upon detection
 
 ### Smart Version Management
+- Displays "Latest ARK4 Stable Release" with enhanced formatting
+- Title appears in white with underline for better visibility
+- Version number shown in accent blue color
 - Automatically fetches the latest ARK-4 release from GitHub
 - Displays clear version information and release date
 - Checks for existing installations
@@ -100,16 +103,19 @@ If PowerShell blocks the script:
 - Includes ChronoSwitch integration for safe CFW removal
 
 ### Installation Process
+- Enhanced progress tracking with visual status indicators
+- Improved extraction progress calculation
 - Creates required directories automatically
 - Downloads latest ARK-4 release with progress tracking
-- Extracts files with real-time progress updates
-- Copies files to correct locations with verification
+- Real-time status updates with detailed feedback
 - Supports both temporary and permanent installations
+- Visual checklist system showing installation progress
 
 ### User Interface
 - Clean, modern dark theme with accent colors
+- Enhanced version display with mixed text formatting
 - Real-time progress updates and status messages
-- Detailed logging system with timestamp
+- Improved visual feedback during operations
 - User-friendly controls and clear instructions
 - Debug mode for advanced troubleshooting
 
