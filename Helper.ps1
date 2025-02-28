@@ -10,7 +10,7 @@ $buttonTextColor = [System.Drawing.Color]::White
 
 # Create and set the application icon
 $iconBase64 = @'
-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
+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
 '@
 
 # Convert Base64 to bytes and create icon
@@ -25,15 +25,26 @@ $logFilePath = Join-Path $env:TEMP "ARK4_Assistant_Debug.log"
 # Create the main form with modern styling
 $form = New-Object System.Windows.Forms.Form
 $form.Text = "Ark4 Assistant"
-$form.Size = New-Object System.Drawing.Size(800, 680)
+$form.Size = New-Object System.Drawing.Size(530, 620)
 $form.StartPosition = "CenterScreen"
 $form.WindowState = "Normal"
-$form.TopMost = $true
+$form.TopMost = $false
 $form.BackColor = $darkBackground
 $form.ForeColor = $textColor
 $form.Font = New-Object System.Drawing.Font("Segoe UI", 9)
 $form.FormBorderStyle = "FixedSingle"
 $form.MaximizeBox = $false
+
+# Add focus handling
+$form.Add_Deactivate({
+    # When the form loses focus, it should go behind other windows
+    $form.TopMost = $false
+})
+
+$form.Add_Activated({
+    # When the form gains focus, bring it to front but don't make it stay on top
+    $form.BringToFront()
+})
 
 # Create a header panel
 $headerPanel = New-Object System.Windows.Forms.Panel
@@ -65,7 +76,7 @@ $elementSpacing = 20
 # Create instructions label with modern styling
 $label = New-Object System.Windows.Forms.Label
 $label.Location = New-Object System.Drawing.Point(20, $topMargin)
-$label.Size = New-Object System.Drawing.Size(740, 40)
+$label.Size = New-Object System.Drawing.Size(470, 40)
 $label.Text = "Please ensure your PSP is on firmware 6.60 or 6.61 before proceeding with the installation."
 $label.Font = New-Object System.Drawing.Font("Segoe UI", 10)
 $label.TextAlign = "MiddleLeft"
@@ -74,7 +85,7 @@ $mainPanel.Controls.Add($label)
 # Update version info label position and styling
 $versionInfoLabel = New-Object System.Windows.Forms.Label
 $versionInfoLabel.Location = New-Object System.Drawing.Point(20, 140)
-$versionInfoLabel.Size = New-Object System.Drawing.Size(740, 40)
+$versionInfoLabel.Size = New-Object System.Drawing.Size(470, 40)
 $versionInfoLabel.Text = "Latest version: Checking..."
 $versionInfoLabel.Font = New-Object System.Drawing.Font("Segoe UI Semibold", 9.5)
 $versionInfoLabel.ForeColor = $accentColor
@@ -163,7 +174,6 @@ function Get-PSPCFWInfo {
         Add-LogEntry "[DEBUG] Using simulated CFW values"
         return @{
             CFW = $debugCFWCombo.SelectedItem
-            IsPermanent = $false
         }
     }
     
@@ -209,25 +219,14 @@ function Get-PSPCFWInfo {
             if ($cfw -ne "Unknown") { break }
         }
         
-        # Additional checks for permanent vs temporary CFW
-        $isPermanent = $false
-        if ($cfw -eq "ARK-4") {
-            if (Test-Path "$pspDrive\PSP\GAME\Ark_cIPL\INSTALLED.TXT") {
-                $isPermanent = $true
-                Add-LogEntry "Detected permanent ARK-4 installation"
-            }
-        }
-        
         return @{
             CFW = $cfw
-            IsPermanent = $isPermanent
         }
         
     } catch {
         Add-LogEntry "Error detecting CFW: $_"
         return @{
             CFW = "Error"
-            IsPermanent = $false
         }
     }
 }
@@ -291,11 +290,7 @@ $driveComboBox.Add_SelectedIndexChanged({
         if (Test-Path "$selectedDrive\PSP") {
             $cfwInfo = Get-PSPCFWInfo -pspDrive $selectedDrive
             $statusMessage = "PSP detected at $selectedDrive`nCFW: $($cfwInfo.CFW)"
-            if ($cfwInfo.CFW -eq "ARK-4") {
-                $statusMessage += "`nInstallation: $( if ($cfwInfo.IsPermanent) { 'Permanent' } else { 'Temporary' })"
-            }
             $progressLabel.Text = $statusMessage
-            Add-LogEntry $statusMessage
             Add-LogEntry $statusMessage
         } else {
             $progressLabel.Text = "Selected drive does not appear to be a PSP"
@@ -351,9 +346,6 @@ $detectButton.Add_Click({
         
         # Prepare status message
         $statusMessage = "PSP detected at $pspDrive`nCFW: $($cfwInfo.CFW)"
-        if ($cfwInfo.CFW -eq "ARK-4") {
-            $statusMessage += "`nInstallation: $( if ($cfwInfo.IsPermanent) { 'Permanent' } else { 'Temporary' })"
-        }
         
         $progressLabel.Text = $statusMessage
         Add-LogEntry $statusMessage
@@ -387,7 +379,7 @@ $mainPanel.Controls.Add($detectButton)
 # Create progress label first
 $progressLabel = New-Object System.Windows.Forms.Label
 $progressLabel.Location = New-Object System.Drawing.Point(20, 190)
-$progressLabel.Size = New-Object System.Drawing.Size(740, 50)
+$progressLabel.Size = New-Object System.Drawing.Size(470, 50)
 $progressLabel.Text = "Ready to install..."
 $progressLabel.Font = New-Object System.Drawing.Font("Segoe UI", 10, [System.Drawing.FontStyle]::Bold)
 $progressLabel.TextAlign = "MiddleLeft"
@@ -396,20 +388,29 @@ $mainPanel.Controls.Add($progressLabel)
 # Create checklist
 $checklist = New-Object System.Windows.Forms.CheckedListBox
 $checklist.Location = New-Object System.Drawing.Point(20, 250)
-$checklist.Size = New-Object System.Drawing.Size(740, 200)
 $checklist.BackColor = $darkSecondary
 $checklist.ForeColor = $textColor
 $checklist.BorderStyle = "None"
 $checklist.Font = New-Object System.Drawing.Font("Segoe UI", 10)
 $checklist.Items.Clear()
-$checklist.Items.AddRange(@(
+
+# Add items to checklist
+$checklistItems = @(
     "[    ] 1. Downloading ARK-4 from GitHub...",
     "[    ] 2. Installing ARK_01234 to Memory Stick (/PSP/SAVEDATA/)",
     "[    ] 3. Installing ARK_Loader to Memory Stick (/PSP/GAME/)",
-    "[    ] 4. Ready for temporary CFW installation",
-    "[    ] 5. Installing Ark_cIPL to Memory Stick (/PSP/GAME/)",
-    "[    ] 6. Ready for permanent CFW installation"
-))
+    "[    ] 4. Installing Ark_cIPL to Memory Stick (/PSP/GAME/)",
+    "[    ] 5. Ready to run ARK Loader",
+    "[    ] 6. Ready to run Ark cIPL Flasher"
+)
+$checklist.Items.AddRange($checklistItems)
+
+# Calculate height based on items (each item is approximately 20 pixels high)
+$itemHeight = 20
+$totalItems = $checklist.Items.Count
+$checklistHeight = $itemHeight * $totalItems
+$checklist.Size = New-Object System.Drawing.Size(470, $checklistHeight)
+
 $checklist.Enabled = $false  # Make it read-only
 $mainPanel.Controls.Add($checklist)
 
@@ -449,8 +450,8 @@ function Update-ChecklistItem {
 
 # Create button panel
 $buttonPanel = New-Object System.Windows.Forms.Panel
-$buttonPanel.Location = New-Object System.Drawing.Point(20, 490)
-$buttonPanel.Size = New-Object System.Drawing.Size(740, 40)
+$buttonPanel.Location = New-Object System.Drawing.Point(20, 390)
+$buttonPanel.Size = New-Object System.Drawing.Size(470, 40)
 $buttonPanel.BackColor = $darkBackground
 $mainPanel.Controls.Add($buttonPanel)
 
@@ -513,8 +514,8 @@ $buttonPanel.Controls.Add($cancelButton)
 
 # Create progress bar
 $progressBar = New-Object System.Windows.Forms.ProgressBar
-$progressBar.Location = New-Object System.Drawing.Point(20, 520)
-$progressBar.Size = New-Object System.Drawing.Size(740, 20)
+$progressBar.Location = New-Object System.Drawing.Point(20, 440)
+$progressBar.Size = New-Object System.Drawing.Size(470, 20)
 $progressBar.Style = "Continuous"
 $progressBar.BackColor = $darkSecondary
 $progressBar.ForeColor = $accentColor
@@ -522,15 +523,15 @@ $mainPanel.Controls.Add($progressBar)
 
 # Create status panel
 $statusPanel = New-Object System.Windows.Forms.Panel
-$statusPanel.Location = New-Object System.Drawing.Point(20, 550)
-$statusPanel.Size = New-Object System.Drawing.Size(740, 20)
+$statusPanel.Location = New-Object System.Drawing.Point(20, 470)
+$statusPanel.Size = New-Object System.Drawing.Size(470, 20)
 $statusPanel.BackColor = $darkSecondary
 $mainPanel.Controls.Add($statusPanel)
 
 $statusLabel = New-Object System.Windows.Forms.Label
 $statusLabel.Text = "Log Output:"
 $statusLabel.Location = New-Object System.Drawing.Point(0, 0)
-$statusLabel.Size = New-Object System.Drawing.Size(740, 20)
+$statusLabel.Size = New-Object System.Drawing.Size(470, 20)
 $statusLabel.Font = New-Object System.Drawing.Font("Segoe UI", 9)
 $statusLabel.ForeColor = $textColor
 $statusLabel.TextAlign = "MiddleLeft"
@@ -538,8 +539,8 @@ $statusPanel.Controls.Add($statusLabel)
 
 # Create log box
 $logBox = New-Object System.Windows.Forms.TextBox
-$logBox.Location = New-Object System.Drawing.Point(20, 570)
-$logBox.Size = New-Object System.Drawing.Size(740, 60)
+$logBox.Location = New-Object System.Drawing.Point(20, 490)
+$logBox.Size = New-Object System.Drawing.Size(470, 60)
 $logBox.Multiline = $true
 $logBox.ScrollBars = "Vertical"
 $logBox.ReadOnly = $true
@@ -550,13 +551,53 @@ $mainPanel.Controls.Add($logBox)
 
 # After creating the log box, add copyright label
 $copyrightLabel = New-Object System.Windows.Forms.Label
-$copyrightLabel.Location = New-Object System.Drawing.Point(20, 640)
+$copyrightLabel.Location = New-Object System.Drawing.Point(20, 560)
 $copyrightLabel.Size = New-Object System.Drawing.Size(200, 20)
-$copyrightLabel.Text = "© 2024 Nigel1992"
+$copyrightLabel.Text = "Made by Nigel1992"
 $copyrightLabel.Font = New-Object System.Drawing.Font("Segoe UI", 8)
 $copyrightLabel.ForeColor = [System.Drawing.Color]::FromArgb(150, 150, 150)
 $copyrightLabel.TextAlign = "MiddleLeft"
 $mainPanel.Controls.Add($copyrightLabel)
+
+# Create debug mode checkbox with modern styling
+$debugCheckbox = New-Object System.Windows.Forms.CheckBox
+$debugCheckbox.Location = New-Object System.Drawing.Point(240, 560)  # Centered between copyright and version
+$debugCheckbox.Size = New-Object System.Drawing.Size(110, 20)
+$debugCheckbox.Text = "Debug Mode"
+$debugCheckbox.ForeColor = [System.Drawing.Color]::FromArgb(150, 150, 150)  # Match other bottom text color
+$debugCheckbox.Font = New-Object System.Drawing.Font("Segoe UI", 8)  # Match other bottom text size
+$debugCheckbox.BackColor = $darkBackground
+$mainPanel.Controls.Add($debugCheckbox)
+
+# Create debug controls panel that shows only when debug is enabled
+$debugPanel = New-Object System.Windows.Forms.Panel
+$debugPanel.Location = New-Object System.Drawing.Point(410, 560)  # Right after debug checkbox
+$debugPanel.Size = New-Object System.Drawing.Size(120, 20)  # Match height of other bottom elements
+$debugPanel.BackColor = $darkBackground
+$debugPanel.Visible = $false
+$mainPanel.Controls.Add($debugPanel)
+
+# Create CFW type combo box for debug
+$debugCFWCombo = New-Object System.Windows.Forms.ComboBox
+$debugCFWCombo.Location = New-Object System.Drawing.Point(0, -5)
+$debugCFWCombo.Size = New-Object System.Drawing.Size(120, 20)
+$debugCFWCombo.BackColor = $darkSecondary
+$debugCFWCombo.ForeColor = $textColor
+$debugCFWCombo.FlatStyle = "Flat"
+$debugCFWCombo.Font = New-Object System.Drawing.Font("Segoe UI", 8)  # Match other bottom text size
+$debugCFWCombo.Items.AddRange(@("PRO", "LME", "ME", "ARK-4", "Unknown"))
+$debugCFWCombo.SelectedIndex = 0
+$debugPanel.Controls.Add($debugCFWCombo)
+
+# Add version info label on the right side
+$versionDateLabel = New-Object System.Windows.Forms.Label
+$versionDateLabel.Location = New-Object System.Drawing.Point(290, 560)
+$versionDateLabel.Size = New-Object System.Drawing.Size(200, 20)
+$versionDateLabel.Text = "Version Info: " + (Get-Date -Format "yyyy-MM-dd")
+$versionDateLabel.Font = New-Object System.Drawing.Font("Segoe UI", 8)
+$versionDateLabel.ForeColor = [System.Drawing.Color]::FromArgb(150, 150, 150)
+$versionDateLabel.TextAlign = "MiddleRight"
+$mainPanel.Controls.Add($versionDateLabel)
 
 # Function to add log entry
 function Add-LogEntry {
@@ -641,7 +682,7 @@ function Get-LatestARKRelease {
             
             # Update version info label with white title and blue version
             $versionInfoLabel.Location = New-Object System.Drawing.Point(20, 140)
-            $versionInfoLabel.Size = New-Object System.Drawing.Size(740, 30)
+            $versionInfoLabel.Size = New-Object System.Drawing.Size(470, 30)
             $versionInfoLabel.Text = "Latest ARK4 Stable Release: " + $latestRelease.name
             $versionInfoLabel.BackColor = $darkBackground  # Remove special background
             $versionInfoLabel.Padding = New-Object System.Windows.Forms.Padding(0)  # Remove padding
@@ -800,7 +841,7 @@ function Install-ARK4 {
             $extracted = 0
             while ($extracted -lt $totalItems) {
                 $extracted = (Get-ChildItem $extractPath -Recurse -File).Count
-                $progress = [math]::Min(80, ([math]::Round(($extracted / $totalItems) * 60)) + 20)
+                $progress = [math]::Min(80, ([math]::Round(($extracted / $totalItems) * 60) + 20))
                 $progressBar.Value = $progress
                 $progressLabel.Text = "Extracting: $extracted of $totalItems files..."
                 Start-Sleep -Milliseconds 100
@@ -1050,60 +1091,6 @@ $debugButton.Add_Click({
 })
 $buttonPanel.Controls.Add($debugButton)
 
-# Add at the start of the script, after Add-Type declarations
-# Initialize log file with system info
-$systemInfo = @"
-=== ARK-4 Assistant Debug Log ===
-Started: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
-Process ID: $PID
-PowerShell Version: $($PSVersionTable.PSVersion)
-OS: $([System.Environment]::OSVersion.VersionString)
-Machine Name: $env:COMPUTERNAME
-User: $env:USERNAME
-Working Directory: $PWD
-Temp Path: $env:TEMP
-=================================
-
-"@
-Set-Content -Path $logFilePath -Value $systemInfo
-
-# Add form closing event to log application exit
-$form.Add_FormClosing({
-    Add-LogEntry "Application closing..."
-    Add-LogEntry "=== Session End ===`n"
-})
-
-# Add after the detect button but before the progress label
-# Create debug mode checkbox with modern styling
-$debugCheckbox = New-Object System.Windows.Forms.CheckBox
-$debugCheckbox.Location = New-Object System.Drawing.Point(650, 460)
-$debugCheckbox.Size = New-Object System.Drawing.Size(110, 20)
-$debugCheckbox.Text = "Debug Mode"
-$debugCheckbox.ForeColor = $textColor
-$debugCheckbox.Font = New-Object System.Drawing.Font("Segoe UI", 9)
-$debugCheckbox.BackColor = $darkBackground
-$mainPanel.Controls.Add($debugCheckbox)
-
-# Create debug controls panel that shows only when debug is enabled
-$debugPanel = New-Object System.Windows.Forms.Panel
-$debugPanel.Location = New-Object System.Drawing.Point(520, 455)
-$debugPanel.Size = New-Object System.Drawing.Size(120, 30)
-$debugPanel.BackColor = $darkBackground
-$debugPanel.Visible = $false
-$mainPanel.Controls.Add($debugPanel)
-
-# Create CFW type combo box for debug
-$debugCFWCombo = New-Object System.Windows.Forms.ComboBox
-$debugCFWCombo.Location = New-Object System.Drawing.Point(0, 0)
-$debugCFWCombo.Size = New-Object System.Drawing.Size(120, 25)
-$debugCFWCombo.BackColor = $darkSecondary
-$debugCFWCombo.ForeColor = $textColor
-$debugCFWCombo.FlatStyle = "Flat"
-$debugCFWCombo.Font = New-Object System.Drawing.Font("Segoe UI", 9)
-$debugCFWCombo.Items.AddRange(@("PRO", "LME", "ME", "ARK-4", "Unknown"))
-$debugCFWCombo.SelectedIndex = 0
-$debugPanel.Controls.Add($debugCFWCombo)
-
 # Add debug checkbox change handler
 $debugCheckbox.Add_CheckedChanged({
     $debugPanel.Visible = $debugCheckbox.Checked
@@ -1113,9 +1100,6 @@ $debugCheckbox.Add_CheckedChanged({
         # Update status message and version info for debug mode
         $selectedCFW = $debugCFWCombo.SelectedItem
         $statusMessage = "PSP detected at DEBUG`nCFW: $selectedCFW"
-        if ($selectedCFW -eq "ARK-4") {
-            $statusMessage += "`nInstallation: Temporary"
-        }
         $progressLabel.Text = $statusMessage
         $versionInfoLabel.Text = "Latest ARK4 Stable Release`nVersion: DEBUG MODE"
         $versionInfoLabel.ForeColor = $textColor  # Keep white in debug mode
@@ -1137,223 +1121,32 @@ $debugCFWCombo.Add_SelectedIndexChanged({
     if ($debugCheckbox.Checked) {
         $selectedCFW = $debugCFWCombo.SelectedItem
         $statusMessage = "PSP detected at DEBUG`nCFW: $selectedCFW"
-        if ($selectedCFW -eq "ARK-4") {
-            $statusMessage += "`nInstallation: Temporary"
-        }
         $progressLabel.Text = $statusMessage
         Add-LogEntry "[DEBUG] Changed simulated CFW to: $selectedCFW"
     }
 })
 
-# Function to show uninstall instructions in a custom form
-function Show-UninstallInstructions {
-    param (
-        [string]$cfwType,
-        [string]$statusMessage
-    )
-    
-    $instructionsForm = New-Object System.Windows.Forms.Form
-    $instructionsForm.Text = "Existing CFW Detected"
-    $instructionsForm.Size = New-Object System.Drawing.Size(600, 500)
-    $instructionsForm.StartPosition = "CenterParent"
-    $instructionsForm.BackColor = $darkBackground
-    $instructionsForm.ForeColor = $textColor
-    $instructionsForm.Font = New-Object System.Drawing.Font("Segoe UI", 9)
-    $instructionsForm.FormBorderStyle = "FixedDialog"
-    $instructionsForm.MaximizeBox = $false
-    
-    # Status message at the top
-    $statusLabel = New-Object System.Windows.Forms.Label
-    $statusLabel.Location = New-Object System.Drawing.Point(20, 20)
-    $statusLabel.Size = New-Object System.Drawing.Size(540, 50)
-    $statusLabel.Text = $statusMessage
-    $statusLabel.Font = New-Object System.Drawing.Font("Segoe UI", 10)
-    $instructionsForm.Controls.Add($statusLabel)
-    
-    # Create a panel for the instructions content
-    $contentPanel = New-Object System.Windows.Forms.Panel
-    $contentPanel.Location = New-Object System.Drawing.Point(20, 80)
-    $contentPanel.Size = New-Object System.Drawing.Size(540, 320)
-    $contentPanel.AutoScroll = $true
-    $instructionsForm.Controls.Add($contentPanel)
-    
-    # Add the instructions text
-    $yPos = 0
-    
-    # Title
-    $titleLabel = New-Object System.Windows.Forms.Label
-    $titleLabel.Location = New-Object System.Drawing.Point(0, $yPos)
-    $titleLabel.Size = New-Object System.Drawing.Size(520, 30)
-    $titleLabel.Text = "To prepare for ARK-4 installation:"
-    $titleLabel.Font = New-Object System.Drawing.Font("Segoe UI", 10, [System.Drawing.FontStyle]::Bold)
-    $contentPanel.Controls.Add($titleLabel)
-    $yPos += 40
-    
-    # Common steps
-    $commonSteps = @(
-        "1. Back up all your important saves and data",
-        "2. Remove your memory stick and back it up on your computer"
-    )
-    foreach ($step in $commonSteps) {
-        $stepLabel = New-Object System.Windows.Forms.Label
-        $stepLabel.Location = New-Object System.Drawing.Point(0, $yPos)
-        $stepLabel.Size = New-Object System.Drawing.Size(520, 20)
-        $stepLabel.Text = $step
-        $contentPanel.Controls.Add($stepLabel)
-        $yPos += 25
-    }
-    
-    $yPos += 10
-    
-    # ChronoSwitch section
-    $chronoTitle = New-Object System.Windows.Forms.Label
-    $chronoTitle.Location = New-Object System.Drawing.Point(0, $yPos)
-    $chronoTitle.Size = New-Object System.Drawing.Size(520, 25)
-    $chronoTitle.Text = "Recommended Method:"
-    $chronoTitle.Font = New-Object System.Drawing.Font("Segoe UI", 10, [System.Drawing.FontStyle]::Bold)
-    $contentPanel.Controls.Add($chronoTitle)
-    $yPos += 30
-    
-    # ChronoSwitch download link
-    $chronoLink = New-Object System.Windows.Forms.LinkLabel
-    $chronoLink.Location = New-Object System.Drawing.Point(0, $yPos)
-    $chronoLink.Size = New-Object System.Drawing.Size(520, 20)
-    $chronoLink.Text = "1. Download ChronoSwitch"
-    $chronoLink.LinkColor = $accentColor
-    $chronoLink.ActiveLinkColor = [System.Drawing.Color]::FromArgb(0, 102, 184)
-    $chronoLink.Add_Click({
-        Start-Process "https://github.com/PSP-Archive/Chronoswitch/releases/latest/download/Chronoswitch.zip"
-    })
-    $contentPanel.Controls.Add($chronoLink)
-    $yPos += 25
-    
-    # ChronoSwitch steps
-    $chronoSteps = @(
-        "2. Extract the zip file",
-        "3. Copy the CHRONOSWITCH folder to /PSP/GAME/ on your memory stick",
-        "4. On your PSP:",
-        "   - Go to Game menu",
-        "   - Run ChronoSwitch",
-        "   - Select 'Install 6.61 OFW'",
-        "   - Follow the on-screen instructions",
-        "   - Wait for the process to complete",
-        "   - Your PSP will reboot to official firmware"
-    )
-    foreach ($step in $chronoSteps) {
-        $stepLabel = New-Object System.Windows.Forms.Label
-        $stepLabel.Location = New-Object System.Drawing.Point(0, $yPos)
-        $stepLabel.Size = New-Object System.Drawing.Size(520, 20)
-        $stepLabel.Text = $step
-        $contentPanel.Controls.Add($stepLabel)
-        $yPos += 25
-    }
-    
-    $yPos += 10
-    
-    # Troubleshooting section
-    $troubleTitle = New-Object System.Windows.Forms.Label
-    $troubleTitle.Location = New-Object System.Drawing.Point(0, $yPos)
-    $troubleTitle.Size = New-Object System.Drawing.Size(520, 25)
-    $troubleTitle.Text = "If ChronoSwitch Fails:"
-    $troubleTitle.Font = New-Object System.Drawing.Font("Segoe UI", 10, [System.Drawing.FontStyle]::Bold)
-    $contentPanel.Controls.Add($troubleTitle)
-    $yPos += 30
-    
-    $troubleSteps = @(
-        "1. Try these steps first:",
-        "   - Format memory stick (after backup)",
-        "   - Try a different memory stick",
-        "   - Remove battery for 30 seconds, then try again"
-    )
-    foreach ($step in $troubleSteps) {
-        $stepLabel = New-Object System.Windows.Forms.Label
-        $stepLabel.Location = New-Object System.Drawing.Point(0, $yPos)
-        $stepLabel.Size = New-Object System.Drawing.Size(520, 20)
-        $stepLabel.Text = $step
-        $contentPanel.Controls.Add($stepLabel)
-        $yPos += 25
-    }
-    
-    $yPos += 10
-    
-    # Forum link
-    $forumLink = New-Object System.Windows.Forms.LinkLabel
-    $forumLink.Location = New-Object System.Drawing.Point(0, $yPos)
-    $forumLink.Size = New-Object System.Drawing.Size(520, 20)
-    $forumLink.Text = "2. Visit wololo.net forums for specific $cfwType removal guide"
-    $forumLink.LinkColor = $accentColor
-    $forumLink.ActiveLinkColor = [System.Drawing.Color]::FromArgb(0, 102, 184)
-    $forumLink.Add_Click({
-        Start-Process "http://wololo.net/talk/viewforum.php?f=20"
-    })
-    $contentPanel.Controls.Add($forumLink)
-    $yPos += 35
-    
-    # Final steps
-    $finalTitle = New-Object System.Windows.Forms.Label
-    $finalTitle.Location = New-Object System.Drawing.Point(0, $yPos)
-    $finalTitle.Size = New-Object System.Drawing.Size(520, 25)
-    $finalTitle.Text = "Once Completed:"
-    $finalTitle.Font = New-Object System.Drawing.Font("Segoe UI", 10, [System.Drawing.FontStyle]::Bold)
-    $contentPanel.Controls.Add($finalTitle)
-    $yPos += 30
-    
-    $finalSteps = @(
-        "1. Go to Settings → System Information",
-        "2. Verify you're on Official Firmware",
-        "3. Reconnect your PSP to USB",
-        "4. Click 'Refresh' and 'Detect PSP' in this tool",
-        "5. Proceed with ARK-4 installation"
-    )
-    foreach ($step in $finalSteps) {
-        $stepLabel = New-Object System.Windows.Forms.Label
-        $stepLabel.Location = New-Object System.Drawing.Point(0, $yPos)
-        $stepLabel.Size = New-Object System.Drawing.Size(520, 20)
-        $stepLabel.Text = $step
-        $contentPanel.Controls.Add($stepLabel)
-        $yPos += 25
-    }
-    
-    # OK button at the bottom
-    $okButton = New-Object System.Windows.Forms.Button
-    $okButton.Location = New-Object System.Drawing.Point(240, 420)
-    $okButton.Size = New-Object System.Drawing.Size(100, 30)
-    $okButton.Text = "OK"
-    $okButton.DialogResult = [System.Windows.Forms.DialogResult]::OK
-    $okButton.FlatStyle = "Flat"
-    $okButton.BackColor = $accentColor
-    $okButton.ForeColor = $buttonTextColor
-    $okButton.Font = New-Object System.Drawing.Font("Segoe UI", 9)
-    $okButton.FlatAppearance.BorderSize = 0
-    $instructionsForm.Controls.Add($okButton)
-    
-    # Update the CFW detection handlers to use the new form
-    $driveComboBox.Add_SelectedIndexChanged({
-        if ($driveComboBox.SelectedItem) {
-            $selectedDrive = $driveComboBox.SelectedItem
-            Add-LogEntry "Drive selected: $selectedDrive"
-            
-            if (Test-Path "$selectedDrive\PSP") {
-                $cfwInfo = Get-PSPCFWInfo -pspDrive $selectedDrive
-                $statusMessage = "PSP detected at $selectedDrive`nCFW: $($cfwInfo.CFW)"
-                if ($cfwInfo.CFW -eq "ARK-4") {
-                    $statusMessage += "`nInstallation: $( if ($cfwInfo.IsPermanent) { 'Permanent' } else { 'Temporary' })"
-                }
-                $progressLabel.Text = $statusMessage
-                Add-LogEntry $statusMessage
-                
-                if ($cfwInfo.CFW -ne "Unknown" -and $cfwInfo.CFW -ne "ARK-4") {
-                    Show-UninstallInstructions -cfwType $cfwInfo.CFW -statusMessage $statusMessage
-                }
-            } else {
-                $progressLabel.Text = "Selected drive does not appear to be a PSP"
-                Add-LogEntry "No PSP detected at $selectedDrive"
-            }
-        }
-    })
-    
-    $instructionsForm.ShowDialog()
-}
+# Initialize log file with system info
+$systemInfo = @"
+=== ARK-4 Assistant Debug Log ===
+Started: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
+Process ID: $PID
+PowerShell Version: $($PSVersionTable.PSVersion)
+OS: $([System.Environment]::OSVersion.VersionString)
+Machine Name: $env:COMPUTERNAME
+User: $env:USERNAME
+Working Directory: $PWD
+Temp Path: $env:TEMP
+=================================
+
+"@
+Set-Content -Path $logFilePath -Value $systemInfo
+
+# Add form closing event to log application exit
+$form.Add_FormClosing({
+    Add-LogEntry "Application closing..."
+    Add-LogEntry "=== Session End ===`n"
+})
 
 # Show the form
 $form.ShowDialog()
