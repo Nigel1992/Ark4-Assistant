@@ -8,6 +8,17 @@ $accentColor = [System.Drawing.Color]::FromArgb(0, 122, 204)
 $textColor = [System.Drawing.Color]::FromArgb(240, 240, 240)
 $buttonTextColor = [System.Drawing.Color]::White
 
+# Create and set the application icon
+$iconBase64 = @'
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABISURBVDhPY2AYdKBw1vP/TQue/8+c+Pg/LkFYDXokzYOU0NzcDKHB5CDVYDUYDWYBdjXYTFKNsuOmC7ETXEMxRevQ/2+Q8/5/ACkXEqPB0blXAAAAAElFTkSuQmCC
+'@
+
+# Convert Base64 to bytes and create icon
+$iconBytes = [Convert]::FromBase64String($iconBase64)
+$iconStream = New-Object IO.MemoryStream($iconBytes, 0, $iconBytes.Length)
+$iconStream.Write($iconBytes, 0, $iconBytes.Length)
+$appIcon = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::FromStream($iconStream)).GetHIcon())
+
 # Define log file path
 $logFilePath = Join-Path $env:TEMP "ARK4_Assistant_Debug.log"
 
@@ -285,6 +296,7 @@ $driveComboBox.Add_SelectedIndexChanged({
             }
             $progressLabel.Text = $statusMessage
             Add-LogEntry $statusMessage
+            Add-LogEntry $statusMessage
         } else {
             $progressLabel.Text = "Selected drive does not appear to be a PSP"
             Add-LogEntry "No PSP detected at $selectedDrive"
@@ -389,15 +401,51 @@ $checklist.BackColor = $darkSecondary
 $checklist.ForeColor = $textColor
 $checklist.BorderStyle = "None"
 $checklist.Font = New-Object System.Drawing.Font("Segoe UI", 10)
+$checklist.Items.Clear()
 $checklist.Items.AddRange(@(
-    "Download ARK-4",
-    "Copy ARK_01234 folder to /PSP/SAVEDATA/",
-    "Copy ARK_Loader folder to /PSP/GAME/",
-    "Install temporary CFW",
-    "Copy Ark_cIPL folder to /PSP/GAME/ (for permanent installation)",
-    "Install permanent CFW using Ark cIPL Flasher"
+    "[    ] 1. Downloading ARK-4 from GitHub...",
+    "[    ] 2. Installing ARK_01234 to Memory Stick (/PSP/SAVEDATA/)",
+    "[    ] 3. Installing ARK_Loader to Memory Stick (/PSP/GAME/)",
+    "[    ] 4. Ready for temporary CFW installation",
+    "[    ] 5. Installing Ark_cIPL to Memory Stick (/PSP/GAME/)",
+    "[    ] 6. Ready for permanent CFW installation"
 ))
+$checklist.Enabled = $false  # Make it read-only
 $mainPanel.Controls.Add($checklist)
+
+# Function to update checklist item with status
+function Update-ChecklistItem {
+    param (
+        [int]$index,
+        [string]$status,  # "pending", "done", "error", "skipped"
+        [string]$additionalInfo = ""
+    )
+    
+    if ($checklist.InvokeRequired) {
+        $checklist.Invoke([Action]{
+            Update-ChecklistItem -index $index -status $status -additionalInfo $additionalInfo
+        })
+        return
+    }
+    
+    $currentItem = $checklist.Items[$index].ToString()
+    $newItem = switch ($status) {
+        "pending" { $currentItem.Replace("[    ]", "[ .. ]") }
+        "done"    { $currentItem.Replace("[    ]", "[ + ]").Replace("[ .. ]", "[ + ]") }
+        "error"   { $currentItem.Replace("[    ]", "[ x ]").Replace("[ .. ]", "[ x ]") }
+        "skipped" { $currentItem.Replace("[    ]", "[ - ]").Replace("[ .. ]", "[ - ]") }
+        default   { $currentItem }
+    }
+    
+    if ($additionalInfo) {
+        # Remove any existing additional info (in parentheses)
+        $newItem = $newItem -replace "\s*\([^)]*\)\s*$", ""
+        $newItem = "$newItem $additionalInfo"
+    }
+    
+    $checklist.Items[$index] = $newItem
+    $checklist.Refresh()
+}
 
 # Create button panel
 $buttonPanel = New-Object System.Windows.Forms.Panel
@@ -591,8 +639,41 @@ function Get-LatestARKRelease {
             # Format the date
             $publishDate = [DateTime]::Parse($latestRelease.published_at).ToString("yyyy-MM-dd")
             
-            # Update version info label with clearer ARK-4 reference
-            $versionInfoLabel.Text = "ARK-4 Release Information`nVersion: $($latestRelease.name)`nReleased: $publishDate"
+            # Update version info label with white title and blue version
+            $versionInfoLabel.Location = New-Object System.Drawing.Point(20, 140)
+            $versionInfoLabel.Size = New-Object System.Drawing.Size(740, 30)
+            $versionInfoLabel.Text = "Latest ARK4 Stable Release: " + $latestRelease.name
+            $versionInfoLabel.BackColor = $darkBackground  # Remove special background
+            $versionInfoLabel.Padding = New-Object System.Windows.Forms.Padding(0)  # Remove padding
+            
+            # Create a custom font for the entire label
+            $versionInfoLabel.Font = New-Object System.Drawing.Font("Segoe UI Semibold", 9.5)
+            
+            # Create a RichTextBox for mixed formatting
+            $richTextBox = New-Object System.Windows.Forms.RichTextBox
+            $richTextBox.Location = $versionInfoLabel.Location
+            $richTextBox.Size = $versionInfoLabel.Size
+            $richTextBox.BackColor = $darkBackground
+            $richTextBox.BorderStyle = "None"
+            $richTextBox.ReadOnly = $true
+            $richTextBox.Font = $versionInfoLabel.Font
+            
+            # Add the text with different colors
+            $richTextBox.Text = "Latest ARK4 Stable Release: " + $latestRelease.name
+            $richTextBox.SelectionStart = 0
+            $richTextBox.SelectionLength = 27  # Length of "Latest ARK4 Stable Release: "
+            $richTextBox.SelectionColor = $textColor  # White color for title and colon
+            $richTextBox.SelectionFont = New-Object System.Drawing.Font("Segoe UI Semibold", 9.5, [System.Drawing.FontStyle]::Underline)
+            
+            $richTextBox.SelectionStart = 27
+            $richTextBox.SelectionLength = $richTextBox.Text.Length - 27
+            $richTextBox.SelectionColor = $accentColor  # Blue color for entire version
+            $richTextBox.SelectionFont = New-Object System.Drawing.Font("Segoe UI Semibold", 9.5)
+            
+            # Replace the label with the RichTextBox
+            $mainPanel.Controls.Remove($versionInfoLabel)
+            $mainPanel.Controls.Add($richTextBox)
+            
             Add-LogEntry "Latest ARK-4 version available: $($latestRelease.name) (Released: $publishDate)"
             
             # Reset progress label to ready state
@@ -616,7 +697,7 @@ Stack Trace:
 $($_.ScriptStackTrace)
 "@
         Add-LogEntry $errorDetails
-        $versionInfoLabel.Text = "Failed to fetch version info"
+        $versionInfoLabel.Text = 'Failed to fetch version info'
         $progressLabel.Text = "Failed to fetch latest release info"
         [System.Windows.Forms.MessageBox]::Show("Failed to fetch latest release: $_", "Error")
         return $null
@@ -638,6 +719,7 @@ function Install-ARK4 {
     try {
         $progressLabel.Text = "Downloading ARK-4..."
         Add-LogEntry "Starting download of ARK-4..."
+        Update-ChecklistItem -index 0 -status "pending"
         
         $downloadUrl = $releaseInfo.Assets | Where-Object { $_.name -like "*.zip" } | Select-Object -First 1 -ExpandProperty browser_download_url
         
@@ -659,6 +741,8 @@ function Install-ARK4 {
             $form.Invoke([Action]{
                 Add-LogEntry "Download completed"
                 $progressBar.Value = 100
+                # Force update the checklist item immediately
+                Update-ChecklistItem -index 0 -status "done" -additionalInfo "(Download complete)"
             })
         }
         
@@ -678,7 +762,8 @@ function Install-ARK4 {
         # Cleanup event handlers
         Get-EventSubscriber | Where-Object { $_.SourceObject -eq $webClient } | Unregister-Event
         
-        $checklist.SetItemChecked(0, $true)
+        # Force update download status
+        Update-ChecklistItem -index 0 -status "done" -additionalInfo "(Download complete)"
         
         # Extract the archive
         $progressLabel.Text = "Extracting ARK-4..."
@@ -715,7 +800,7 @@ function Install-ARK4 {
             $extracted = 0
             while ($extracted -lt $totalItems) {
                 $extracted = (Get-ChildItem $extractPath -Recurse -File).Count
-                $progress = [math]::Min(80, [math]::Round(($extracted / $totalItems) * 60) + 20)
+                $progress = [math]::Min(80, ([math]::Round(($extracted / $totalItems) * 60)) + 20)
                 $progressBar.Value = $progress
                 $progressLabel.Text = "Extracting: $extracted of $totalItems files..."
                 Start-Sleep -Milliseconds 100
@@ -734,33 +819,52 @@ function Install-ARK4 {
             Add-LogEntry "Extraction verified successfully"
             $progressBar.Value = 90
             
-            # Continue with copying files...
-            
             # Copy files to PSP
             $progressLabel.Text = "Copying files to PSP..."
             Add-LogEntry "Copying files to PSP..."
             
             # Copy SAVEDATA
             if (Test-Path "$extractPath\ARK_01234") {
+                $checklist.Invoke([Action]{
+                    Update-ChecklistItem -index 1 -status "pending" -additionalInfo "(Copying...)"
+                })
                 Add-LogEntry "Copying ARK_01234 to SAVEDATA..."
                 Copy-Item "$extractPath\ARK_01234" -Destination "$pspDrive\PSP\SAVEDATA\" -Recurse -Force
-                $checklist.SetItemChecked(1, $true)
+                $checklist.Invoke([Action]{
+                    Update-ChecklistItem -index 1 -status "done" -additionalInfo "(Copy complete)"
+                })
                 Add-LogEntry "SAVEDATA copy complete"
             }
             
             # Copy GAME folders
             if (Test-Path "$extractPath\ARK_Loader") {
+                $checklist.Invoke([Action]{
+                    Update-ChecklistItem -index 2 -status "pending" -additionalInfo "(Copying...)"
+                })
                 Add-LogEntry "Copying ARK_Loader to GAME..."
                 Copy-Item "$extractPath\ARK_Loader" -Destination "$pspDrive\PSP\GAME\" -Recurse -Force
-                $checklist.SetItemChecked(2, $true)
+                $checklist.Invoke([Action]{
+                    Update-ChecklistItem -index 2 -status "done" -additionalInfo "(Copy complete)"
+                })
                 Add-LogEntry "ARK_Loader copy complete"
+                $checklist.Invoke([Action]{
+                    Update-ChecklistItem -index 3 -status "pending" -additionalInfo "(Run ARK Loader on your PSP)"
+                })
             }
             
             if (Test-Path "$extractPath\Ark_cIPL") {
+                $checklist.Invoke([Action]{
+                    Update-ChecklistItem -index 4 -status "pending" -additionalInfo "(Copying...)"
+                })
                 Add-LogEntry "Copying Ark_cIPL to GAME..."
                 Copy-Item "$extractPath\Ark_cIPL" -Destination "$pspDrive\PSP\GAME\" -Recurse -Force
-                $checklist.SetItemChecked(4, $true)
+                $checklist.Invoke([Action]{
+                    Update-ChecklistItem -index 4 -status "done" -additionalInfo "(Copy complete)"
+                })
                 Add-LogEntry "Ark_cIPL copy complete"
+                $checklist.Invoke([Action]{
+                    Update-ChecklistItem -index 5 -status "pending" -additionalInfo "(Run Ark cIPL Flasher on your PSP)"
+                })
             }
             
             $progressBar.Value = 100
@@ -772,25 +876,28 @@ function Install-ARK4 {
             
             $progressLabel.Text = "Installation completed successfully!"
             Add-LogEntry "Installation completed successfully!"
-            [System.Windows.Forms.MessageBox]::Show(
-                "ARK-4 files have been copied to your PSP.
+            [System.Windows.Forms.MessageBox]::Show(@"
+ARK-4 files have been copied to your PSP.
 
 Next steps:
 1. On your PSP, go to Game > Memory Stick
 2. Run the ARK Loader to install temporary CFW
 3. For permanent installation, run the Ark cIPL Flasher
 
-Version installed: $($releaseInfo.Version)",
+Version installed: $($releaseInfo.Version)
+"@,
                 "Installation Complete"
             )
             
         } catch {
+            Update-ChecklistItem -index 0 -status "error" -additionalInfo "(Extraction failed)"
             $progressLabel.Text = "Extraction failed!"
             Add-LogEntry "ERROR: Extraction failed - $_"
             [System.Windows.Forms.MessageBox]::Show("Failed to extract ARK-4: $_", "Error")
         }
         
     } catch {
+        Update-ChecklistItem -index 0 -status "error" -additionalInfo "(Download failed)"
         $progressLabel.Text = "Download failed!"
         Add-LogEntry "ERROR: Download failed - $_"
         [System.Windows.Forms.MessageBox]::Show("Failed to download ARK-4: $_", "Error")
@@ -982,14 +1089,38 @@ $debugCheckbox.Add_CheckedChanged({
     Add-LogEntry "Debug mode: $($debugCheckbox.Checked)"
     
     if ($debugCheckbox.Checked) {
-        # Update status message only
+        # Update status message and version info for debug mode
         $selectedCFW = $debugCFWCombo.SelectedItem
         $statusMessage = "PSP detected at DEBUG`nCFW: $selectedCFW"
         if ($selectedCFW -eq "ARK-4") {
             $statusMessage += "`nInstallation: Temporary"
         }
         $progressLabel.Text = $statusMessage
+        $versionInfoLabel.Text = "Latest ARK4 Stable Release`nVersion: DEBUG MODE"
+        $versionInfoLabel.ForeColor = $textColor  # Keep white in debug mode
+        $versionInfoLabel.Font = New-Object System.Drawing.Font("Segoe UI Semibold", 9.5, [System.Drawing.FontStyle]::Underline)
         Add-LogEntry "[DEBUG] Simulating $selectedCFW CFW"
+    } else {
+        # Reset to normal mode
+        $progressLabel.Text = "Ready to install..."
+        $versionInfoLabel.Text = "Latest version: Checking..."
+        $versionInfoLabel.ForeColor = $accentColor  # Reset to accent color
+        $versionInfoLabel.Font = New-Object System.Drawing.Font("Segoe UI Semibold", 9.5)  # Reset font
+        # Refresh version info
+        $releaseInfo = Get-LatestARKRelease
+    }
+})
+
+# Add debug CFW combo box change handler
+$debugCFWCombo.Add_SelectedIndexChanged({
+    if ($debugCheckbox.Checked) {
+        $selectedCFW = $debugCFWCombo.SelectedItem
+        $statusMessage = "PSP detected at DEBUG`nCFW: $selectedCFW"
+        if ($selectedCFW -eq "ARK-4") {
+            $statusMessage += "`nInstallation: Temporary"
+        }
+        $progressLabel.Text = $statusMessage
+        Add-LogEntry "[DEBUG] Changed simulated CFW to: $selectedCFW"
     }
 })
 
