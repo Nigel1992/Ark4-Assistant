@@ -1,6 +1,6 @@
 # ARK-4 Assistant
 
-![{99AA286A-73EB-434B-A563-A50E8A6CABA3}](https://github.com/user-attachments/assets/357d0e5c-fc43-4bcd-a5b9-f4aabce7b585)
+![image](https://github.com/user-attachments/assets/f1ceaa96-ee07-4802-8442-26cfbb56df6e)
 
 A modern, user-friendly PowerShell GUI tool for installing ARK-4 Custom Firmware on PlayStation Portable (PSP) devices.
 
