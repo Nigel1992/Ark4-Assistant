@@ -1,0 +1,20 @@
+# Discussion category forms configuration
+# This file configures the templates for different discussion categories
+
+# Q&A category
+- category: "Q&A"
+  name: "q_a"
+  description: "Ask questions and get answers about ARK4 Helper"
+  template: "q_a.yml"
+
+# General discussion category
+- category: "General"
+  name: "general"
+  description: "Discuss ARK4 Helper, PSP modding, and related topics"
+  template: "general.yml"
+
+# Show and Tell category
+- category: "Show and Tell"
+  name: "show_and_tell"
+  description: "Share your PSP projects and creations"
+  template: "show_and_tell.yml" 

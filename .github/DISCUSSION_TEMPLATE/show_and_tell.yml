@@ -1,0 +1,64 @@
+title: "Show and Tell: "
+labels: ["showcase"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Share Your Project
+        
+        Use this template to showcase your PSP projects, homebrew applications, or anything interesting you've done with ARK-4!
+        
+  - type: textarea
+    id: project_description
+    attributes:
+      label: Project Description
+      description: Tell us about your project or creation.
+      placeholder: I've created...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or Media
+      description: Share screenshots, videos, or images of your project. You can drag and drop images directly into this field.
+      placeholder: Drag and drop images here...
+    validations:
+      required: false
+      
+  - type: textarea
+    id: how_to
+    attributes:
+      label: How You Did It
+      description: Share details about how you created your project, tools used, or any challenges you faced.
+      placeholder: |
+        Tools used:
+        - ARK4 Helper
+        - PSP SDK
+        - Other tools...
+        
+        Process:
+        1. First, I...
+        2. Then...
+    validations:
+      required: false
+      
+  - type: textarea
+    id: links
+    attributes:
+      label: Links
+      description: Share any relevant links to your project (GitHub repository, download links, etc.)
+      placeholder: |
+        - GitHub: https://github.com/username/project
+        - Download: https://example.com/download
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Community Guidelines
+      description: By sharing your project, you agree to follow our community guidelines.
+      options:
+        - label: I confirm this is my own work or I have properly credited the original creators
+          required: true 

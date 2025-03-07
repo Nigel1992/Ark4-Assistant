@@ -1,0 +1,70 @@
+title: "Question: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Ask a Question
+        
+        Thanks for taking the time to ask a question about ARK4 Helper! Please fill out the information below to help us provide the best answer.
+        
+        Before submitting, please check if your question has already been answered in:
+        - [Frequently Asked Questions (FAQ)](https://github.com/Nigel1992/ARK4-Helper/wiki/FAQ)
+        - [Existing Discussions](https://github.com/Nigel1992/ARK4-Helper/discussions/categories/q-a)
+        
+  - type: dropdown
+    id: category
+    attributes:
+      label: Question Category
+      description: What type of question are you asking?
+      options:
+        - Installation
+        - Usage
+        - PSP Compatibility
+        - Troubleshooting
+        - Feature Request
+        - Other
+    validations:
+      required: true
+      
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: Please provide a clear and concise question.
+      placeholder: How do I...?
+    validations:
+      required: true
+      
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Provide any additional information that might help us answer your question.
+      placeholder: |
+        - ARK4 Helper version: 
+        - Operating System:
+        - PSP Model:
+        - PSP Firmware:
+    validations:
+      required: false
+      
+  - type: textarea
+    id: attempted
+    attributes:
+      label: What You've Tried
+      description: If applicable, describe what you've already tried to solve your problem.
+      placeholder: I've already tried...
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this question, you agree to follow our community guidelines.
+      options:
+        - label: I have searched existing discussions and the FAQ before posting
+          required: true
+        - label: I have provided all relevant information needed to answer my question
+          required: true 

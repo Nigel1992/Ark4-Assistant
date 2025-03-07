@@ -1,0 +1,53 @@
+title: ""
+labels: ["discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Start a Discussion
+        
+        Welcome to the ARK4 Helper community! Use this template to start a general discussion about ARK4 Helper, PSP modding, or related topics.
+        
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Discussion Topic
+      description: What general area does your discussion relate to?
+      options:
+        - ARK4 Helper Development
+        - PSP Modding
+        - ARK-4 Custom Firmware
+        - Homebrew Applications
+        - Community Suggestions
+        - Other
+    validations:
+      required: true
+      
+  - type: textarea
+    id: discussion
+    attributes:
+      label: Discussion
+      description: What would you like to discuss with the community?
+      placeholder: I'd like to talk about...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Information
+      description: Any additional context, screenshots, or information to help frame the discussion.
+      placeholder: More details...
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Community Guidelines
+      description: By starting this discussion, you agree to follow our community guidelines.
+      options:
+        - label: I have checked that a similar discussion doesn't already exist
+          required: true
+        - label: I will be respectful and constructive in my discussion
+          required: true 
