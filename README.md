@@ -2,15 +2,22 @@
 
 ![image](https://github.com/user-attachments/assets/f1ceaa96-ee07-4802-8442-26cfbb56df6e)
 
-A modern, user-friendly PowerShell GUI tool for installing ARK-4 Custom Firmware on PlayStation Portable (PSP) devices.
+A modern, user-friendly WPF-based GUI tool for installing ARK-4 Custom Firmware on PlayStation Portable (PSP) devices.
 
 ## Latest Updates
 
-### Version Display Improvements
-- Enhanced version info display with "Latest ARK4 Stable Release" format
-- Implemented mixed text formatting with white underlined title and blue version number
-- Removed background box for cleaner appearance
-- Improved visibility and readability of version information
+### Major UI Framework Update
+- Migrated from Windows Forms to WPF for improved performance and modern UI
+- Implemented XAML-based interface with responsive grid layout
+- Enhanced visual design with modern controls and animations
+- Added GitHub source code link in footer
+
+### Visual Improvements
+- Redesigned dark theme with accent colors
+- Modern button styles with hover effects
+- Enhanced progress bar visualization
+- Integrated PSP icon in header area
+- Improved footer layout with source code link
 
 ### Installation Process Enhancements
 - Added detailed progress tracking with status indicators
