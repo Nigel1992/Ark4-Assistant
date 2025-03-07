@@ -202,3 +202,40 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Disclaimer
 
 This tool is not affiliated with Sony or the PlayStation brand. Use at your own risk. Always backup your data before modifying your PSP system software.
+
+## TODO List
+
+### High Priority
+- [ ] Add automatic firmware version detection
+- [ ] Implement backup creation before installation
+- [ ] Add ChronoSwitch integration for CFW removal
+- [ ] Enhance error recovery for failed installations
+- [ ] Add installation verification checks
+
+### UI/UX Improvements
+- [ ] Add dark/light theme toggle
+- [ ] Implement localization support
+- [ ] Add installation wizard mode
+- [ ] Enhance progress visualization
+- [ ] Add tooltips for advanced features
+
+### Features
+- [ ] Add support for plugin management
+- [ ] Implement batch installation mode
+- [ ] Add system backup/restore functionality
+- [ ] Create update checker for ARK-4 Assistant
+- [ ] Add offline installation support
+
+### Documentation
+- [ ] Create detailed troubleshooting guide
+- [ ] Add video tutorials
+- [ ] Improve installation instructions
+- [ ] Create developer documentation
+- [ ] Add contribution guidelines
+
+### Testing & Stability
+- [ ] Add automated testing
+- [ ] Implement crash reporting
+- [ ] Add system compatibility checks
+- [ ] Create recovery mode
+- [ ] Add diagnostic tools
