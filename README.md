@@ -1,6 +1,7 @@
 # ARK-4 Assistant
 
-![image](https://github.com/user-attachments/assets/f1ceaa96-ee07-4802-8442-26cfbb56df6e)
+![{3C9AA799-F19E-49D6-81F6-CA680EED6770}](https://github.com/user-attachments/assets/647ebc6b-0bb6-4908-b398-7933f8eff254)
+
 
 A modern, user-friendly WPF-based GUI tool for installing ARK-4 Custom Firmware on PlayStation Portable (PSP) devices.
 
