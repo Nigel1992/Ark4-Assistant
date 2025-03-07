@@ -1,0 +1,119 @@
+name: 🐞 Bug Report
+description: File a bug report for ARK4 Helper
+title: "[BUG] "
+labels: ["bug", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for taking the time to report a bug!
+        Please fill out the information below to help us resolve the issue quickly.
+
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      description: Please confirm these before submitting your issue.
+      options:
+        - label: I have searched existing issues to avoid creating duplicates
+          required: true
+        - label: I have verified this is a bug and not user error
+          required: true
+        - label: I have included all relevant information to reproduce the issue
+          required: true
+
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of ARK4 Helper are you using?
+      options:
+        - Latest Release
+        - Previous Release
+        - Development Build
+    validations:
+      required: true
+
+  - type: dropdown
+    id: operating_system
+    attributes:
+      label: Operating System
+      description: What operating system are you using?
+      options:
+        - Windows 11
+        - Windows 10
+        - Windows 8.1
+        - Windows 7
+        - Other (specify in additional info)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: psp_model
+    attributes:
+      label: PSP Model
+      description: Which PSP model are you using?
+      options:
+        - PSP 1000 (Fat)
+        - PSP 2000 (Slim)
+        - PSP 3000 (Slim)
+        - PSP Go (N1000)
+        - PSP Street (E1000)
+        - Not applicable
+      multiple: false
+    validations:
+      required: false
+
+  - type: textarea
+    id: current_behavior
+    attributes:
+      label: Current Behavior
+      description: A clear description of what the bug is.
+      placeholder: When I click on the "Detect PSP" button, the application crashes...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      description: A clear description of what you expected to happen.
+      placeholder: The application should detect my PSP and show its drive letter...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Connect PSP to computer
+        2. Open ARK4 Helper
+        3. Click on "Detect PSP" button
+        4. See error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Log Output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code.
+      placeholder: Check the debug log by clicking the "Debug Log" button and paste the content here.
+      render: powershell
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Information
+      description: |
+        Any additional information, context, or screenshots that may help us understand and fix the issue.
+        
+        Tip: You can attach images by dragging and dropping them into this field.
+    validations:
+      required: false 

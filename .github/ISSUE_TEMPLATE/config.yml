@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 Documentation
+    url: https://github.com/Nigel1992/ARK4-Helper/wiki
+    about: Check our documentation before creating an issue
+  - name: 💬 Discussions
+    url: https://github.com/Nigel1992/ARK4-Helper/discussions
+    about: Please ask and answer questions here
+  - name: 🤔 Support Request
+    url: https://github.com/Nigel1992/ARK4-Helper/discussions/categories/q-a
+    about: This issue tracker is not for support requests. Please use the discussions Q&A section. 
