@@ -9,6 +9,8 @@
 
 # ARK-4 Assistant 🎮
 
+[![Vibe Coded](https://img.shields.io/badge/Vibe_Coded-✨-8A2BE2?style=for-the-badge)](https://github.com)
+
 <div align="center">
 
 [![GitHub Release](https://img.shields.io/github/v/release/Nigel1992/Ark4-Assistant?style=flat&labelColor=121212&color=4CAF50&logo=github&logoColor=white)](https://github.com/Nigel1992/Ark4-Assistant/releases)
